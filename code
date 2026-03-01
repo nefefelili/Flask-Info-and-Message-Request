@@ -1,0 +1,24 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route("/info", methods=["GET"])
+def info():
+    return {
+        "aplicacion": "Mi Primera API con Flask",
+        "version": "1.0",
+        "estado": "Funcionando correctamente"
+    }
+
+@app.route("/mensaje", methods=["POST"])
+def recibir_mensaje():
+    data = request.get_json()
+    contenido = data.get("texto", "Hola Mundo")
+    
+    return {
+        "respuesta": f"He recibido tu mensaje: '{contenido}'",
+        "longitud_caracteres": len(contenido)
+    }, 200
+
+if __name__ == "__main__":
+    app.run(debug=True)
