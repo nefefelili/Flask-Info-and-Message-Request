@@ -1,23 +1,22 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 
 app = Flask(__name__)
 
-@app.route("/info", methods=["GET"])
+@app.route("/info", methods = ["GET"])
 def info():
     return {
-        "aplicacion": "Mi Primera API con Flask",
-        "version": "1.0",
-        "estado": "Funcionando correctamente"
+        "Application": "My first API with Flask",
+        "Version": "1.1",
+        "State": "Functional",
     }
 
-@app.route("/mensaje", methods=["POST"])
-def recibir_mensaje():
+@app.route("/message", methods = ["POST"])
+def message():
     data = request.get_json()
-    contenido = data.get("texto", "Hola Mundo")
-    
+    msg = data.get("texto", "Secret Message")
+
     return {
-        "respuesta": f"He recibido tu mensaje: '{contenido}'",
-        "longitud_caracteres": len(contenido)
+        "response": f"Your message has been received: '{msg}'"
     }, 200
 
 if __name__ == "__main__":
